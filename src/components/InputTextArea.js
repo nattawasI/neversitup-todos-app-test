@@ -9,7 +9,7 @@ const InputTextArea = ({ placeHolder, value, onChange }) => {
 
   return (
     <textarea
-      className="block w-full h-10 px-4 py-2 h-24 border border-gray-300 rounded-sm appearance-none resize-none"
+      className="block w-full h-10 px-4 py-2 h-28 border border-gray-300 rounded-md appearance-none resize-none"
       placeholder={ placeHolder }
       value={ value }
       onChange={ handleChange }

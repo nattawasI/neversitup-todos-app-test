@@ -44,6 +44,7 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
               <InputText
                 value={ valueTitle }
                 onChange={ handleChangeTitle }
+                error={ errorMsg ? true : false }
               />
               {
                 errorMsg

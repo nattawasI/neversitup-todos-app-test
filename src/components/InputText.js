@@ -12,7 +12,7 @@ const InputText = ({ placeHolder, value, onChange, error }) => {
   return (
     <input
       type="text"
-      className={`block w-full h-10 px-4 border border-gray-300 rounded-sm appearance-none outline-none${ classError }`}
+      className={`block w-full h-10 px-4 border border-gray-300 rounded-md appearance-none outline-none${ classError }`}
       placeholder={ placeHolder }
       onChange={ handleChange }
       value={ value }
