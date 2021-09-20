@@ -63,6 +63,8 @@ const TodoCard = ({ data }) => {
         <FormTodo
           dataEdit={ data }
           editMode={ true }
+          onCancel={ hideModalEdit }
+          onSubmit={ hideModalEdit }
         />
       </Modal>
       <Modal

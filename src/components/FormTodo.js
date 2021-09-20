@@ -5,7 +5,7 @@ import InputTextArea from './InputTextArea'
 import TextError from './TextError'
 import Button from './Button'
 
-const FormTodo = ({ dataEdit, editMode }) => {
+const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
   const [valueTitle, setValueTitle] = useState('')
   const [valueDesc, setValueDesc] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -16,6 +16,14 @@ const FormTodo = ({ dataEdit, editMode }) => {
 
   const handleChangeDesc = (value) => {
     setValueDesc(value)
+  }
+
+  const handleClickCancel = () => {
+    onCancel()
+  }
+
+  const handleClickSubmit = () => {
+    onSubmit()
   }
 
   useEffect(() => {
@@ -57,13 +65,13 @@ const FormTodo = ({ dataEdit, editMode }) => {
           <div className="mt-6">
             <div className="flex justify-center">
               <div className="w-28">
-                <Button variant="outline" block>Cancel</Button>
+                <Button variant="outline" block onClick={ handleClickCancel }>Cancel</Button>
               </div>
               <div className="w-28 ml-4">
                 {
                   editMode
-                  ? <Button block>Create</Button>
-                  : <Button block>Edit</Button>
+                  ? <Button block onClick={ handleClickSubmit }>Edit</Button>
+                  : <Button block onClick={ handleClickSubmit }>Create</Button>
                 }
               </div>
             </div>
@@ -77,11 +85,15 @@ const FormTodo = ({ dataEdit, editMode }) => {
 FormTodo.propTypes = {
   dataEdit: PropTypes.object,
   editMode: PropTypes.bool,
+  onCancel: PropTypes.func,
+  onSubmit: PropTypes.func,
 }
 
 FormTodo.defaultProps = {
   dataEdit: null,
   editMode: false,
+  onCancel: () => {},
+  onSubmit: () => {},
 }
 
 
