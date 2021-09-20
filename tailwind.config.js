@@ -21,6 +21,7 @@ module.exports = {
         'light-green': lightGreen
       },
       borderColor: {
+        'black': black,
         'primary-green': primaryGreen,
         'dark-green': darkGreen,
         'light-green': lightGreen

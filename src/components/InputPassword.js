@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 
-const InputPassword = ({ value, onChange, placeHolder }) => {
+const InputPassword = ({ placeHolder, value, onChange }) => {
   // state
   const [showPassword, setShowPassword] = useState(false)
 
@@ -21,7 +21,6 @@ const InputPassword = ({ value, onChange, placeHolder }) => {
       <input
         type="password"
         className="block w-full h-10 px-4 border border-gray-300 rounded-md"
-        ref={ ref }
         placeholder={ placeHolder }
         onChange={ handleChange }
         value={ value }
@@ -41,16 +40,9 @@ const InputPassword = ({ value, onChange, placeHolder }) => {
 }
 
 InputPassword.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  placeHolder: PropTypes.string
+  placeHolder: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
-
-InputPassword.defaultProps = {
-  value: '',
-  onChange: () => {},
-  placeHolder: ''
-}
-
 
 export default InputPassword

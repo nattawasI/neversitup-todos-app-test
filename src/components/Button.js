@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({ children, type, variant, onClick }) => {
+const Button = ({ children, type, block, variant, onClick }) => {
   const handleClick = () => {
     onClick()
   }
 
-  let classes = 'inline-flex items-center px-4 py-2 border-2 transition duration-300 ease-in-out rounded-md'
+  const classDisplay = block ? 'flex w-full' : 'inline-flex'
+  let classes = `${ classDisplay } justify-center items-center px-4 py-2 border-2 rounded-md text-center transition duration-300 ease-in-out`
   if (variant === 'outline') {
     classes += ' bg-transparent text-black border-black'
   } else {
@@ -26,12 +27,14 @@ const Button = ({ children, type, variant, onClick }) => {
 
 Button.propTypes = {
   type: PropTypes.string,
+  block: PropTypes.bool,
   variant: PropTypes.string,
   onClick: PropTypes.func,
 }
 
 Button.defaultProps = {
   type: '',
+  block: false,
   variant: '', // the other one is "outline"
   onClick: () => false,
 }
