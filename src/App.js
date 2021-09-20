@@ -4,21 +4,24 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import Home from './pages/Home'
+import TodosContextProvider from './contexts/TodosContext'
+import Main from './pages/Main'
 import Login from './pages/Login'
 
 function App() {
   return (
-    <HashRouter>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-    </HashRouter>
+    <TodosContextProvider>
+      <HashRouter>
+        <Switch>
+          <Route exact path="/">
+            <Main />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </HashRouter>
+    </TodosContextProvider>
   );
 }
 

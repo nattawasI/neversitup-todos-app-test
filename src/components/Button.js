@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Button = ({ children, type, block, variant, onClick }) => {
+const Button = ({ children, type, block, variant, onClick, disabled }) => {
   const handleClick = () => {
     onClick()
   }
@@ -19,6 +19,7 @@ const Button = ({ children, type, block, variant, onClick }) => {
       type={ type }
       className={ classes }
       onClick={ handleClick }
+      disabled={ disabled }
     >
       { children }
     </button>
@@ -30,6 +31,7 @@ Button.propTypes = {
   block: PropTypes.bool,
   variant: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 }
 
 Button.defaultProps = {
@@ -37,6 +39,7 @@ Button.defaultProps = {
   block: false,
   variant: '', // the other one is "outline"
   onClick: () => false,
+  disabled: false,
 }
 
 export default Button

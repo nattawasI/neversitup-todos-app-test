@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
   Redirect
 } from 'react-router-dom'
+import { useTodosStateContext } from '../contexts/TodosContext'
 import Header from '../components/Header'
 import TodosEmpty from '../components/TodosEmpty'
 import TodosList from '../components/TodosList'
@@ -9,9 +10,7 @@ import ButtonCreate from '../components/ButtonCreate'
 import Modal from '../components/Modal'
 import FormTodo from '../components/FormTodo'
 
-const Home = () => {
-  const loggedIn = false
-
+const Main = () => {
   const [todoList, setTodoList] = useState([])
   const [createTodo, setCreateTodo] = useState(false)
 
@@ -27,8 +26,8 @@ const Home = () => {
     document.title = 'Todos App'
   }, [])
 
-
-  if (!loggedIn) {
+  const hadToken = localStorage.getItem('authToken');
+  if (!hadToken) {
     return <Redirect to="/login" />
   }
 
@@ -64,4 +63,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Main

@@ -1,20 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useHistory } from 'react-router-dom'
 import Button from './Button'
 
-const ConfirmDelete = ({ dataDelete, onClose, onConfirm }) => {
+const ConfirmDelete = ({ onClose }) => {
+  const history = useHistory()
+
+  const loggedOut = () => {
+    localStorage.removeItem('authToken')
+    history.push("/login");
+  }
   const handleClickCancel = () => {
     onClose()
   }
 
   const handleClickConfirm = () => {
-    onConfirm()
+    loggedOut()
     onClose()
   }
 
   return (
     <>
-      <div className="pr-8">Are you sure to delete <span className="font-bold">{ dataDelete.title }?</span></div>
+      <div className="pr-8">Do you want to logout?</div>
       <div className="mt-6">
         <div className="flex justify-end">
           <div className="w-28">
@@ -36,7 +43,6 @@ ConfirmDelete.propTypes = {
 
 ConfirmDelete.defaultProps = {
   onCancel: () => {},
-  onConfirm: () => {},
 }
 
 export default ConfirmDelete

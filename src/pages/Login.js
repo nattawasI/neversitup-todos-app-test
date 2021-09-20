@@ -1,24 +1,70 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { postApi } from '../services'
 import InputText from '../components/InputText'
 import InputPassword from '../components/InputPassword'
 import Button from '../components/Button'
+import TextError from '../components/TextError'
 import BoxError from '../components/BoxError'
+import Loading from '../components/Loading'
 
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMsg, setErrorMsg] = useState('Incorrect username or password')
+  const history = useHistory()
+
+  const [username, setUsername] = useState('nattawasi')
+  const [password, setPassword] = useState('nattawastest26')
+  const [errorUsernameMsg, setErrorUsernameMsg] = useState('')
+  const [errorPasswordMsg, setErrorPasswordMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChangeUsername = (value) => {
     setUsername(value)
+    setErrorUsernameMsg('')
   }
 
   const handleChangePassword = (value) => {
     setPassword(value)
+    setErrorPasswordMsg('')
   }
 
   const hideError = () => {
     setErrorMsg('')
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!username || !password) {
+      if (!username) {
+        setErrorUsernameMsg('Please enter username')
+      }
+
+      if (!password) {
+        setErrorPasswordMsg('Please enter password')
+      }
+      return false
+    } else {
+      setIsLoading(true)
+
+      const userData = {
+        username,
+        password
+      }
+
+      try {
+        const response = await postApi('/users/auth', userData)
+        console.log(response);
+        localStorage.setItem('authToken', response.data.token)
+        setErrorMsg('')
+        setTimeout(() => {
+          setIsLoading(false)
+          history.push('/')
+        }, 1000);
+      } catch {
+        setErrorMsg('Incorrect username or password');
+      }
+    }
   }
 
   useEffect(() => {
@@ -26,44 +72,70 @@ const Login = () => {
   }, [])
 
   return (
-    <div className="px-6 pt-24">
-      <div className="max-w-sm mx-auto">
-        <form>
-          <h1 className="text-4xl font-bold text-center">Login</h1>
-          <div className="mt-12">
-            {
-              errorMsg
-              &&  <div className="mb-6">
-                    <BoxError onHide={ hideError }>{ errorMsg }</BoxError>
-                  </div>
-            }
-            <div>
-              <div className="font-bold">Username</div>
-              <div className="mt-2">
-                <InputText
-                  value={ username }
-                  onChange={ handleChangeUsername }
-                />
+    <>
+      <div className="px-6 pt-24">
+        <div className="max-w-sm mx-auto">
+          <form onSubmit={ onSubmit }>
+            <h1 className="text-4xl font-bold text-center">Login</h1>
+            <div className="mt-12">
+              {
+                errorMsg
+                &&  <div className="mb-6">
+                      <BoxError onHide={ hideError }>{ errorMsg }</BoxError>
+                    </div>
+              }
+              <div>
+                <div className="font-bold">Username</div>
+                <div className="mt-2">
+                  <InputText
+                    value={ username }
+                    onChange={ handleChangeUsername }
+                    error={ errorUsernameMsg ? true : false }
+                  />
+                  {
+                    errorUsernameMsg
+                    &&  <div className="mt-2">
+                          <TextError>{ errorUsernameMsg }</TextError>
+                        </div>
+                  }
+                </div>
               </div>
-            </div>
-            <div className="mt-6">
-              <div className="font-bold">Password</div>
-              <div className="mt-2">
-                <InputPassword
-                  value={ password }
-                  onChange={ handleChangePassword }
-                />
+              <div className="mt-6">
+                <div className="font-bold">Password</div>
+                <div className="mt-2">
+                  <InputPassword
+                    value={ password }
+                    onChange={ handleChangePassword }
+                    error={ errorPasswordMsg ? true : false }
+                  />
+                  {
+                    errorPasswordMsg
+                    &&  <div className="mt-2">
+                          <TextError>{ errorPasswordMsg }</TextError>
+                        </div>
+                  }
+                </div>
               </div>
-            </div>
-            <div className="flex justify-center mt-10">
-              <div className="w-full">
-                <Button block>Login</Button>
+              <div className="flex justify-center mt-10">
+                <div className="w-full">
+                  <Button type="submit" block>Login</Button>
+                </div>
               </div>
+              {
+                isLoading
+                &&  <div className="flex justify-center items-center mt-6">
+                      <Loading />
+                    </div>
+              }
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+      {
+        isLoading
+        &&  <div className="fixed inset-0 z-50 flex justify-center items-center">&nbsp;</div>
+      }
+    </>
   )
 }
 
