@@ -25,11 +25,11 @@ const TodoCard = ({ data }) => {
     setShowConfirmDelete(true)
   }
 
-  // function handleClick
   const hideModalConfirmDelete = () => {
     setShowConfirmDelete(false)
   }
 
+  // function handleClick
   const handleClickTrash =() => {
     showModalConfirmDelete(false)
   }
