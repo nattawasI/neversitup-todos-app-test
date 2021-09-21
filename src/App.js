@@ -10,18 +10,18 @@ import Login from './pages/Login'
 
 function App() {
   return (
-      <HashRouter>
-        <Switch>
-          <Route exact path="/">
-            <TodosContextProvider>
-              <Main />
-            </TodosContextProvider>
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-        </Switch>
-      </HashRouter>
+    <HashRouter>
+      <Switch>
+        <Route exact path="/">
+          <TodosContextProvider>
+            <Main />
+          </TodosContextProvider>
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    </HashRouter>
   );
 }
 

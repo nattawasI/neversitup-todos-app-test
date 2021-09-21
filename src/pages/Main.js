@@ -27,16 +27,15 @@ const Main = () => {
   }
 
   useEffect(() => {
+    document.title = 'Todos App'
+  }, [])
+
+  useEffect(() => {
     const authToken = localStorage.getItem('authToken')
     if (!authToken) {
       return history.push('/login')
     }
-
   }, [history])
-
-  useEffect(() => {
-    document.title = 'Todos App'
-  }, [])
 
   return (
     <div className="pt-14 md:pt-16">

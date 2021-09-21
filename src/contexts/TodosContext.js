@@ -45,7 +45,10 @@ const TodosContextProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setTodosListContext()
+    const authToken = localStorage.getItem('authToken')
+    if (authToken) {
+      setTodosListContext()
+    }
   }, [])
 
   const stateProvider = {

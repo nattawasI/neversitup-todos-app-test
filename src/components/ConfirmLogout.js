@@ -10,6 +10,7 @@ const ConfirmDelete = ({ onClose }) => {
     localStorage.removeItem('authToken')
     history.push("/login");
   }
+
   const handleClickCancel = () => {
     onClose()
   }
