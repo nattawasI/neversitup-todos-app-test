@@ -44,8 +44,7 @@ const Main = () => {
         onHide={ hideModalCreateTodo }
       >
         <FormTodo
-          onCancel={ hideModalCreateTodo }
-          onSubmit={ hideModalCreateTodo }
+          onClose={ hideModalCreateTodo }
         />
       </Modal>
     </div>

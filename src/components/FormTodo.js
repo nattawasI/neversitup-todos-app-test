@@ -6,7 +6,7 @@ import InputTextArea from './InputTextArea'
 import TextError from './TextError'
 import Button from './Button'
 
-const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
+const FormTodo = ({ dataEdit, editMode, onClose }) => {
   const { createTodoContext, updateTodoContext } = useTodosActionContext()
 
   const [valueTitle, setValueTitle] = useState('')
@@ -23,7 +23,7 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
   }
 
   const handleClickCancel = () => {
-    onCancel()
+    onClose()
   }
 
   const handleClickEdit = () => {
@@ -33,7 +33,7 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
         description: valueDesc
       }
       updateTodoContext(dataEdit._id, dataUpdated)
-      onSubmit()
+      onClose()
     } else {
       setErrorTitle(true)
     }
@@ -46,7 +46,7 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
         description: valueDesc
       }
       createTodoContext(newTodo)
-      onSubmit()
+      onClose()
     } else {
       setErrorTitle(true)
     }
@@ -110,15 +110,13 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
 FormTodo.propTypes = {
   dataEdit: PropTypes.object,
   editMode: PropTypes.bool,
-  onCancel: PropTypes.func,
-  onSubmit: PropTypes.func,
+  onClose: PropTypes.func,
 }
 
 FormTodo.defaultProps = {
   dataEdit: null,
   editMode: false,
-  onCancel: () => {},
-  onSubmit: () => {},
+  onClose: () => {},
 }
 
 

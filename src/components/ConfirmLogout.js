@@ -38,11 +38,11 @@ const ConfirmDelete = ({ onClose }) => {
 }
 
 ConfirmDelete.propTypes = {
-  onCancel: PropTypes.func,
+  onClose: PropTypes.func,
 }
 
 ConfirmDelete.defaultProps = {
-  onCancel: () => {},
+  onClose: () => {},
 }
 
 export default ConfirmDelete
