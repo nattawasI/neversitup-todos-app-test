@@ -120,10 +120,8 @@ const Login = () => {
                     }
                   </div>
                 </div>
-                <div className="flex justify-center mt-8">
-                  <div className="w-full">
-                    <Button type="submit" block>Login</Button>
-                  </div>
+                <div className="flex justify-center mt-8 w-full">
+                  <Button type="submit" block>Login</Button>
                 </div>
                 {
                   isLoading

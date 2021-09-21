@@ -85,11 +85,7 @@ const TodoCard = ({ data }) => {
 }
 
 TodoCard.propTypes = {
-  data: PropTypes.object,
-}
-
-TodoCard.defaultProps = {
-  data: {},
+  data: PropTypes.object.isRequired,
 }
 
 export default TodoCard
