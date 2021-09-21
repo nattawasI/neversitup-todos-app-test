@@ -21,10 +21,11 @@ const TodosContextProvider = ({ children }) => {
 
     try {
       const response = await getAllTodos()
-      setTodoListContext(response.data)
+      setTodoListContext(response.data.reverse())
       setLoadingTodosContext(false)
+      window.scrollTo(0, 0)
     } catch (error) {
-      console.log('error: ', error)
+      console.log('error: ', error.message)
       setLoadingTodosContext(false)
     }
   }

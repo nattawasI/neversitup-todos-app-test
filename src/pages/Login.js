@@ -74,7 +74,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="px-6 pt-24">
+      <div className="px-6 pt-4 md:pt-24 pb-16">
         <div className="max-w-sm mx-auto">
           <AnimateWhale />
           <div className="-mt-8">
