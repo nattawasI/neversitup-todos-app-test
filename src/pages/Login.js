@@ -74,12 +74,13 @@ const Login = () => {
 
   return (
     <>
-      <div className="px-6 pt-4 md:pt-24 pb-16">
+      <div className="px-6 pt-6 md:pt-24 pb-16">
+        <h1 className="fixed top-4 md:top-6 left-6 text-lg md:text-xl font-lato font-bold">Todos App</h1>
         <div className="max-w-sm mx-auto">
           <AnimateWhale />
           <div className="-mt-8">
             <form onSubmit={ onSubmit }>
-              <h1 className="text-4xl font-bold text-center">Login</h1>
+              <div className="text-4xl font-bold text-center">Login</div>
               <div className="mt-12">
                 {
                   errorMsg
