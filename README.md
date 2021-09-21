@@ -1,6 +1,6 @@
 This project was started by "create-react-app"
 
-Link Demo: https://neversitup-todos-app-test.netlify.app
+Live Demo: https://neversitup-todos-app-test.netlify.app
 
 my account for testing this project:\
 Username: `nattawasi`\
