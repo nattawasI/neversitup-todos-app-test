@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useTodosActionContext } from '../contexts/TodosContext'
 import Button from './Button'
 
-const ConfirmDelete = ({ dataDelete, onClose, onConfirm }) => {
+const ConfirmDelete = ({ dataDelete, onClose }) => {
+  const { deleteTodoContext } = useTodosActionContext()
+
   const handleClickCancel = () => {
     onClose()
   }
 
   const handleClickConfirm = () => {
-    onConfirm()
+    deleteTodoContext(dataDelete._id)
     onClose()
   }
 
@@ -32,6 +35,7 @@ const ConfirmDelete = ({ dataDelete, onClose, onConfirm }) => {
 ConfirmDelete.propTypes = {
   dataDelete: PropTypes.object.isRequired,
   onCancel: PropTypes.func,
+  onConfirm: PropTypes.func,
 }
 
 ConfirmDelete.defaultProps = {

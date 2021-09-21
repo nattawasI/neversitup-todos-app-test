@@ -30,7 +30,7 @@ const Modal = ({ children, show, onHide, dialogMode }) => {
               <div className={ `${ classDialog } px-4 py-16 mx-auto` }>
                 <div className="relative px-6 py-8 bg-white rounded-md">
                   <div className="absolute top-4 right-4">
-                    <ButtonIcon size="sm" onClick={ handleClose }>
+                    <ButtonIcon onClick={ handleClose }>
                       <FiX />
                     </ButtonIcon>
                   </div>

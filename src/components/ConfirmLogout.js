@@ -37,7 +37,6 @@ const ConfirmDelete = ({ onClose }) => {
 }
 
 ConfirmDelete.propTypes = {
-  dataDelete: PropTypes.object.isRequired,
   onCancel: PropTypes.func,
 }
 

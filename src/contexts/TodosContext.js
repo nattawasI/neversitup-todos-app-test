@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
+import { createTodo, deleteTodo, updateTodo, getAllTodos } from '../services'
 
 const TodosStateContext = createContext()
 const TodosActionContext = createContext()
@@ -12,14 +13,51 @@ export const useTodosActionContext = () => {
 }
 
 const TodosContextProvider = ({ children }) => {
-  const [auth, setAuth] = useState(false)
+  const [todoListContext, setTodoListContext] = useState([])
+  const [loadingTodosContext, setLoadingTodosContext] = useState(true)
+
+  const setTodosListContext = async () => {
+    setLoadingTodosContext(true)
+
+    try {
+      const response = await getAllTodos()
+      setTodoListContext(response.data)
+      setLoadingTodosContext(false)
+    } catch (error) {
+      console.log('error: ', error)
+      setLoadingTodosContext(false)
+    }
+  }
+
+  const createTodoContext = async (newTodo) => {
+    await createTodo(newTodo)
+    setTodosListContext()
+  }
+
+  const deleteTodoContext = async (id) => {
+    await deleteTodo(id)
+    setTodosListContext()
+  }
+
+  const updateTodoContext = async (id, data) => {
+    await updateTodo(id, data)
+    setTodosListContext()
+  }
+
+  useEffect(() => {
+    setTodosListContext()
+  }, [])
 
   const stateProvider = {
-    auth,
+    todoListContext,
+    loadingTodosContext,
   }
 
   const actionProvider = {
-    setAuth,
+    setTodosListContext,
+    createTodoContext,
+    updateTodoContext,
+    deleteTodoContext,
   }
 
   return (

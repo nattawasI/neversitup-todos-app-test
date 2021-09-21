@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useTodosActionContext } from '../contexts/TodosContext'
 import InputText from './InputText'
 import InputTextArea from './InputTextArea'
 import TextError from './TextError'
 import Button from './Button'
 
 const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
+  const { createTodoContext, updateTodoContext } = useTodosActionContext()
+
   const [valueTitle, setValueTitle] = useState('')
   const [valueDesc, setValueDesc] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
+  const [errorTitle, setErrorTitle] = useState(false)
 
   const handleChangeTitle = (value) => {
+    setErrorTitle(false)
     setValueTitle(value)
   }
 
@@ -22,8 +26,30 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
     onCancel()
   }
 
-  const handleClickSubmit = () => {
-    onSubmit()
+  const handleClickEdit = () => {
+    if (valueTitle) {
+      const dataUpdated = {
+        title: valueTitle,
+        description: valueDesc
+      }
+      updateTodoContext(dataEdit._id, dataUpdated)
+      onSubmit()
+    } else {
+      setErrorTitle(true)
+    }
+  }
+
+  const handleClickCreate = async () => {
+    if (valueTitle) {
+      const newTodo = {
+        title: valueTitle,
+        description: valueDesc
+      }
+      createTodoContext(newTodo)
+      onSubmit()
+    } else {
+      setErrorTitle(true)
+    }
   }
 
   useEffect(() => {
@@ -37,47 +63,45 @@ const FormTodo = ({ dataEdit, editMode, onCancel, onSubmit }) => {
     <div>
       <div className="text-2xl font-bold">{ editMode ? 'Edit' : 'Create Todo' }</div>
       <div className="mt-8">
-        <form>
-          <div>
-            <div className="font-bold">Title</div>
-            <div className="mt-2">
-              <InputText
-                value={ valueTitle }
-                onChange={ handleChangeTitle }
-                error={ errorMsg ? true : false }
-              />
+        <div>
+          <div className="font-bold">Title</div>
+          <div className="mt-2">
+            <InputText
+              value={ valueTitle }
+              onChange={ handleChangeTitle }
+              error={ errorTitle }
+            />
+            {
+              errorTitle
+              &&  <div className="mt-2">
+                    <TextError>Please enter the title</TextError>
+                  </div>
+            }
+          </div>
+        </div>
+        <div className="mt-6">
+          <div className="font-bold">Description</div>
+          <div className="mt-2">
+            <InputTextArea
+              value={ valueDesc }
+              onChange={ handleChangeDesc }
+            />
+          </div>
+        </div>
+        <div className="mt-6">
+          <div className="flex justify-center">
+            <div className="w-28">
+              <Button variant="outline" block onClick={ handleClickCancel }>Cancel</Button>
+            </div>
+            <div className="w-28 ml-4">
               {
-                errorMsg
-                &&  <div className="mt-2">
-                      <TextError>{ errorMsg }</TextError>
-                    </div>
+                editMode
+                ? <Button type="submit" block onClick={ handleClickEdit }>Edit</Button>
+                : <Button type="submit" block onClick={ handleClickCreate }>Create</Button>
               }
             </div>
           </div>
-          <div className="mt-6">
-            <div className="font-bold">Description</div>
-            <div className="mt-2">
-              <InputTextArea
-                value={ valueDesc }
-                onChange={ handleChangeDesc }
-              />
-            </div>
-          </div>
-          <div className="mt-6">
-            <div className="flex justify-center">
-              <div className="w-28">
-                <Button variant="outline" block onClick={ handleClickCancel }>Cancel</Button>
-              </div>
-              <div className="w-28 ml-4">
-                {
-                  editMode
-                  ? <Button block onClick={ handleClickSubmit }>Edit</Button>
-                  : <Button block onClick={ handleClickSubmit }>Create</Button>
-                }
-              </div>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   )

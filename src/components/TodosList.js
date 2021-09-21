@@ -1,16 +1,18 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { useTodosStateContext } from '../contexts/TodosContext'
 import TodoCard from './TodoCard'
 
-const TodosList = ({ list }) => {
+const TodosList = () => {
+  const { todoListContext } = useTodosStateContext()
+
   return (
     <div>
       <ul>
         {
-          list.map((todo, index) => {
-            const marginTop = index > 0 ? ' mt-10' : ''
+          todoListContext.map((todo, index) => {
+            const marginTop = index > 0 ? ' mt-6' : ''
             return (
-              <li className={`${ marginTop }`} key={ todo.id }>
+              <li className={`${ marginTop }`} key={ todo._id }>
                 <TodoCard data={ todo } />
               </li>
             )
@@ -19,14 +21,6 @@ const TodosList = ({ list }) => {
       </ul>
     </div>
   )
-}
-
-TodosList.propTypes = {
-  list: PropTypes.array,
-}
-
-TodosList.defaultProps = {
-  list: [],
 }
 
 export default TodosList
