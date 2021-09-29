@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useTodosActionContext } from '../contexts/TodosContext'
 import InputText from './InputText'
@@ -8,7 +8,7 @@ import Button from './Button'
 
 const FormTodo = ({ dataEdit, editMode, onClose }) => {
   const { createTodoContext, updateTodoContext } = useTodosActionContext()
-
+  const usernameRef = useRef(null)
   const [valueTitle, setValueTitle] = useState('')
   const [valueDesc, setValueDesc] = useState('')
   const [errorTitle, setErrorTitle] = useState(false)
@@ -59,6 +59,10 @@ const FormTodo = ({ dataEdit, editMode, onClose }) => {
     }
   }, [dataEdit])
 
+  useEffect(() => {
+    usernameRef.current.focus()
+  }, [])
+
   return (
     <div>
       <div className="text-2xl font-bold">{ editMode ? 'Edit' : 'Create Todo' }</div>
@@ -67,6 +71,7 @@ const FormTodo = ({ dataEdit, editMode, onClose }) => {
           <div className="font-bold">Title</div>
           <div className="mt-2">
             <InputText
+              ref={ usernameRef }
               value={ valueTitle }
               onChange={ handleChangeTitle }
               error={ errorTitle }

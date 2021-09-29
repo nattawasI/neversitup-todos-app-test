@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import dayjs from 'dayjs'
 import { FiTrash } from 'react-icons/fi'
+import { useTodosActionContext } from '../contexts/TodosContext'
 import ButtonIcon from '../components/ButtonIcon'
 import Modal from './Modal'
 import FormTodo from '../components/FormTodo'
-import ConfirmDelete from '../components/ConfirmDelete'
+import DialogConfirm from './DialogConfirm'
 
 const TodoCard = ({ data }) => {
+  const { deleteTodoContext } = useTodosActionContext()
+
   const [showEdit, setShowEdit] = useState(false)
   const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
@@ -36,6 +39,10 @@ const TodoCard = ({ data }) => {
 
   const handleClickCard =() => {
     showModalEdit()
+  }
+
+  const confirmDelete = () => {
+    deleteTodoContext(data._id)
   }
 
   const date = dayjs(data.createdAt).format('DD-MM-YYYY')
@@ -74,10 +81,12 @@ const TodoCard = ({ data }) => {
         onHide={ hideModalConfirmDelete }
         dialogMode
       >
-        <ConfirmDelete
-          dataDelete={ data }
-          onClose={ hideModalConfirmDelete}
-        />
+        <DialogConfirm
+          onClose={ hideModalConfirmDelete }
+          onSubmit={ confirmDelete }
+        >
+          <>Are you sure to delete <span className="font-bold">{ data.title }?</span></>
+        </DialogConfirm>
       </Modal>
     </>
   )

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import PropTypes from 'prop-types'
 
-const InputText = ({ placeHolder, value, onChange, error }) => {
+const InputText = forwardRef(({ placeHolder, value, onChange, error }, ref) => {
   const handleChange = (e) => {
     const value = e.target.value
     onChange(value)
@@ -12,13 +12,14 @@ const InputText = ({ placeHolder, value, onChange, error }) => {
   return (
     <input
       type="text"
+      ref={ ref }
       className={`block w-full h-10 px-4 border border-gray-300 rounded-md appearance-none outline-none${ classError }`}
       placeholder={ placeHolder }
       onChange={ handleChange }
       value={ value }
     />
   )
-}
+})
 
 InputText.propTypes = {
   placeHolder: PropTypes.string,

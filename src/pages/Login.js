@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 import { authorization } from '../services'
 import InputText from '../components/InputText'
@@ -11,7 +11,7 @@ import AnimateWhale from '../components/AnimateWhale'
 
 const Login = () => {
   const history = useHistory()
-
+  const usernameRef = useRef(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errorUsernameMsg, setErrorUsernameMsg] = useState('')
@@ -70,6 +70,7 @@ const Login = () => {
 
   useEffect(() => {
     document.title = 'Todos App - Login'
+    usernameRef.current.focus()
   }, [])
 
   return (
@@ -92,6 +93,7 @@ const Login = () => {
                   <div className="font-bold">Username</div>
                   <div className="mt-2">
                     <InputText
+                      ref={ usernameRef }
                       value={ username }
                       onChange={ handleChangeUsername }
                       error={ errorUsernameMsg ? true : false }

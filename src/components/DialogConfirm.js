@@ -1,35 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
 import Button from './Button'
 
-const ConfirmDelete = ({ onClose }) => {
-  const history = useHistory()
-
-  const loggedOut = () => {
-    localStorage.removeItem('authToken')
-    history.push("/login");
-  }
-
+const DialogConfirm = ({ children, onClose, onSubmit, textSubmit }) => {
   const handleClickCancel = () => {
     onClose()
   }
 
   const handleClickConfirm = () => {
-    loggedOut()
+    onSubmit()
     onClose()
   }
 
   return (
     <>
-      <div className="pr-8">Do you want to logout?</div>
+      <div className="pr-8">{ children }</div>
       <div className="mt-6">
         <div className="flex justify-end">
           <div className="w-28">
             <Button variant="outline" block onClick={ handleClickCancel }>Cancel</Button>
           </div>
           <div className="w-28 ml-4">
-            <Button block onClick={ handleClickConfirm }>Confirm</Button>
+            <Button block onClick={ handleClickConfirm }>{ textSubmit }</Button>
           </div>
         </div>
       </div>
@@ -37,12 +29,17 @@ const ConfirmDelete = ({ onClose }) => {
   )
 }
 
-ConfirmDelete.propTypes = {
+DialogConfirm.propTypes = {
+  children: PropTypes.element.isRequired,
   onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  textSubmit: PropTypes.string,
 }
 
-ConfirmDelete.defaultProps = {
+DialogConfirm.defaultProps = {
   onClose: () => {},
+  onSubmit: () => {},
+  textSubmit: 'Confirm',
 }
 
-export default ConfirmDelete
+export default DialogConfirm

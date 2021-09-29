@@ -21,7 +21,8 @@ const TodosContextProvider = ({ children }) => {
 
     try {
       const response = await getAllTodos()
-      setTodoListContext(response.data.reverse())
+      const todoList = response.data.reverse()
+      setTodoListContext(todoList)
       setLoadingTodosContext(false)
       window.scrollTo(0, 0)
     } catch (error) {
